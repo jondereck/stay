@@ -1,5 +1,4 @@
 'use client'
-import { User } from "@prisma/client"
 import { AiOutlineMenu } from 'react-icons/ai';
 import Avatar from '../Avatar';
 import { useCallback, useState } from 'react';
@@ -7,10 +6,11 @@ import MenuItem from './MenuItem';
 import useRegisterModal from '@/app/hooks/useRegisterModal';
 import useLoginModal from '@/app/hooks/useLoginModal';
 import { signOut } from "next-auth/react"
+import { SafeUser } from "@/app/types";
 
 
 interface UserMenuProps {
-  currentUser?: User | null;
+  currentUser?: SafeUser | null;
 }
 
 const UserMenu: React.FC<UserMenuProps> = ({
@@ -51,8 +51,8 @@ const UserMenu: React.FC<UserMenuProps> = ({
         transition">
         <AiOutlineMenu/>
       </div>
-        <div className='hidden md:block'>
-          <Avatar/>
+        <div className=' md:block'>
+          <Avatar size=" w-8 h-8 "src={currentUser?.image}/>
        
       </div>
       </div> 
