@@ -6,6 +6,7 @@ import RegisterModal from "./components/modals/RegisterModal";
 import ToasterProvider from "./providers/ToasterProviders";
 import LoginModal from "./components/modals/LoginModal";
 import getCurrentUser from "./actions/getCurrentUser";
+import { SafeUser } from "@/app/types";
 
 
 export const metadata = {
@@ -16,6 +17,8 @@ export const metadata = {
 const nunito = Nunito({
   subsets: ["latin"],
 });
+
+
 
 export default async function RootLayout({
   children,

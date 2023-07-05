@@ -6,5 +6,6 @@ User,
 > & {
   createdAt: string;
   updatedAt: string;
-  email?: string | null; // added to allow for optional emails in the future. This is not a
+  emailVerified?: string | null; // added to allow for optional emails in the future. This is not a
 }
+
