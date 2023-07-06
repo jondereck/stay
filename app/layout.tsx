@@ -7,6 +7,7 @@ import ToasterProvider from "./providers/ToasterProviders";
 import LoginModal from "./components/modals/LoginModal";
 import getCurrentUser from "./actions/getCurrentUser";
 import { SafeUser } from "@/app/types";
+import RentModal from "./components/modals/RentModal";
 
 
 export const metadata = {
@@ -32,6 +33,7 @@ export default async function RootLayout({
       <body className={nunito.className}>
         <ClientOnly>
           <ToasterProvider/>
+          <RentModal/>
           <LoginModal/>
           <RegisterModal />
           <Navbar currentUser={currentUser} />

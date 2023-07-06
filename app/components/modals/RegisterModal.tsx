@@ -13,6 +13,7 @@ import { toast } from "react-hot-toast";
 import Button from "../Button";
 import useLoginModal from "@/app/hooks/useLoginModal";
 import { signIn } from "next-auth/react"
+import { useRouter } from "next/navigation";
 const RegisterModal = () => {
   const registerModal = useRegisterModal();
   const loginModal = useLoginModal();
@@ -63,6 +64,11 @@ const RegisterModal = () => {
         setIsLoading(false);
       });
   };
+
+  const toggle = useCallback(() => {
+    registerModal.onClose();
+    loginModal.onOpen();
+  },[registerModal, loginModal]);
 
   const bodyContent = (
     <div className="flex flex-col gap-4">
@@ -146,7 +152,7 @@ const RegisterModal = () => {
                 Aready have an Acount?
             </div>
             <div 
-            onClick={() => {loginModal.onOpen}}
+            onClick={toggle}
             className="
               text-neutral-800
               cursor-pointer

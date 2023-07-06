@@ -65,7 +65,7 @@ const CategoryBox: React.FC<CategoryBoxProps> = ({
         <div 
           className="
             text-sm
-            font-medium
+            font-bold
           "
         >
           {label}
