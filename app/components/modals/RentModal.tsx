@@ -29,9 +29,15 @@ const RentModal = () => {
   const rentModal = useRentModal();
   const router = useRouter();
 
-  const [isLoading, setIsLoading] = useState(false);
-  const [selectedCategory, setSelectedCategory] = useState('')
   const [steps, setSteps] = useState(STEPS.CATEGORY);
+  const [isLoading, setIsLoading] = useState(false);
+
+  const [selectedLocation, setSelectedLocation] = useState('')
+  const [selectedDescription, setSelectedDescription] = useState('')
+  const [selectedImages, setSelectedImages] = useState('')
+  const [selectedCategory, setSelectedCategory] = useState('')
+
+ 
 
   const {
     register,
@@ -71,7 +77,13 @@ const RentModal = () => {
     if (id === 'category') {
       setSelectedCategory(value);
     }
-    
+    if (id === 'location') {
+      setSelectedLocation(value);
+    }
+    if (id === 'imgSrc') {
+      setSelectedImages(value);
+    }
+   
     setValue(id, value, {
       shouldDirty: true,
       shouldTouch: true,
@@ -82,10 +94,26 @@ const RentModal = () => {
   const onBack = () => {
     setSteps((value) => value -1);
   }
-
   const onNext = () => {
-    setSteps((value) => value +1);
-  }
+    if (steps === STEPS.CATEGORY  && !selectedCategory) {
+      toast.error("Please select a category");
+      return;
+    }
+
+    if (steps === STEPS.LOCATION && !selectedLocation) {
+      toast.error("Please select a location");
+      return;
+    }
+
+    if (steps === STEPS.IMAGES && !selectedImages) {
+      toast.error("Please upload an image")
+    }
+   
+
+  setSteps((value) => value + 1);
+    
+  };
+  
 
   const actionLabel = useMemo(() => {
     if (steps === STEPS.PRICE) {
@@ -107,11 +135,6 @@ const RentModal = () => {
   const onSumbit: SubmitHandler<FieldValues> = (data) => {
     if (steps !== STEPS.PRICE) {
       return onNext();
-    }
-
-    if (!selectedCategory) {
-      toast.error("Please select a category");
-      return;
     }
 
     setIsLoading(true);
@@ -270,7 +293,7 @@ const RentModal = () => {
       <div className="flex flex-col gap-8">
         <Heading
           title="Now, set your price"
-          subtitle="How much do oyu charge per night?"
+          subtitle="How much do you charge per night?"
         />
         <Input
           id="price"
