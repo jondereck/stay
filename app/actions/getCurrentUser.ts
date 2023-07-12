@@ -26,14 +26,14 @@ export default async function getCurrentUser() {
     }
 
 
-    return currentUser;
-    // return {
-    //   ...currentUser,
-    //   createdAt: currentUser.createdAt.toISOString(),
-    //   updatedAt: currentUser.updatedAt.toISOString(),
-    //   emailVerified: 
-    //     currentUser.emailVerified?.toISOString() || null,
-    // };
+    // return currentUser;
+    return {
+      ...currentUser,
+      createdAt: currentUser.createdAt.toISOString(),
+      updatedAt: currentUser.updatedAt.toISOString(),
+      emailVerified: 
+        currentUser.emailVerified?.toISOString() || null,
+    };
   } catch (error: any) {
     return null;
   }

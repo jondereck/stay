@@ -11,7 +11,7 @@ import useRegisterModal from '@/app/hooks/useRegisterModal';
 import useLoginModal from '@/app/hooks/useLoginModal';
 import useRentModal from '@/app/hooks/useRentModal'
 interface UserMenuProps {
-  currentUser?: User | null;
+  currentUser?: SafeUser | null;
 }
 
 const UserMenu: React.FC<UserMenuProps> = ({

@@ -9,7 +9,6 @@ import getCurrentUser from "./actions/getCurrentUser";
 import { SafeUser } from "@/app/types";
 import RentModal from "./components/modals/RentModal";
 
-
 export const metadata = {
   title: "Stay",
   description: "A homestaycation app",
@@ -19,29 +18,23 @@ const nunito = Nunito({
   subsets: ["latin"],
 });
 
-
-
 export default async function RootLayout({
   children,
 }: {
   children: React.ReactNode;
 }) {
-
   const currentUser = await getCurrentUser();
   return (
     <html lang="en">
       <body className={nunito.className}>
         <ClientOnly>
-          <ToasterProvider/>
-          <RentModal/>
-          <LoginModal/>
+          <ToasterProvider />
+          <RentModal />
+          <LoginModal />
           <RegisterModal />
           <Navbar currentUser={currentUser} />
         </ClientOnly>
-        <div className="pb-20 pt-28">
-        {children}
-        </div>
-        
+        <div className="pb-20 pt-28">{children}</div>
       </body>
     </html>
   );

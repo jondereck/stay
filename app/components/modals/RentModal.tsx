@@ -177,13 +177,13 @@ const RentModal = () => {
           overflow-y-auto
         " 
       >
-        {categories.map((item) => (
-            <div key={item.label} className="col-span-1">
+        {categories.map((test) => (
+            <div key={test.label} className="col-span-1">
                 <CategoryInput
                   onClick={(category) => setCustomValue('category', category)}
-                  label={item.label}
-                  selected={category === item.label}
-                  icon={item.icon}
+                  label={test.label}
+                  selected={category === test.label}
+                  icon={test.icon}
                 />
             </div>
         ))}
