@@ -4,7 +4,7 @@ import Image from "next/image";
 
 interface AvatarProps {
   src: string | null | undefined;
-  size: string; // Accepts Tailwind CSS utility classes for sizing
+  size?: string; // Accepts Tailwind CSS utility classes for sizing
 }
 
 const Avatar: React.FC<AvatarProps> = ({ src, size }) => {

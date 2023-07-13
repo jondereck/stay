@@ -7,8 +7,8 @@ import useCountries from "@/app/hooks/useCountries";
 import { useCallback, useMemo } from "react";
 import Image from "next/image";
 import { format } from "date-fns";
-import Heartbutton from "../../HeartButton";
-import Button from "../../Button";
+import Heartbutton from "../HeartButton";
+import Button from "../Button";
 
 interface ListingCardProps {
   data: Listing;
@@ -106,7 +106,7 @@ const ListingCard: React.FC<ListingCardProps> = ({
         <div
           className="font-sembold text-lg"        
         >
-          {location?.flag}, {location?.region}, {location?.label}
+         {location?.region}, {location?.label}
         </div>
         <div className="font-light text-neutral-500">
           {reservationDate || data.category}
