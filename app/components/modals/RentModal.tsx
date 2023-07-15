@@ -13,7 +13,7 @@ import Counter from "./inputs/Counter";
 import ImageUpload from "./inputs/ImageUpload";
 import Input from "./inputs/Input";
 import axios from "axios";
-import { ToastBar, toast } from "react-hot-toast";
+import { toast } from "react-hot-toast";
 import { useRouter } from "next/navigation";
 
 enum STEPS {
@@ -71,7 +71,7 @@ const RentModal = () => {
 
   const Map = useMemo(() => dynamic(() => import('../Map'), {
     ssr: false
-  }), [location]);
+  }), []);
 
   const setCustomValue = (id: string, value: any) => {
     if (id === 'category') {
