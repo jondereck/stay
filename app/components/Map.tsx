@@ -17,17 +17,24 @@ L.Icon.Default.mergeOptions({
 });
 
 interface MapProps {
-  center?: number[]
+  center?: { lat: number; lng: number } | null;
+  zoom?: number;
 }
 
 const url = "https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png";
 const attribution = '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors';
 
-const Map: React.FC<MapProps> = ({ center }) => {
+const Map: React.FC<MapProps> = ({ center, zoom  }) => {
+  const defaultCenter: { lat: number; lng: number } = { lat: 12.8797, lng: 121.7740 };
+  const defaultZoom = 10;
+
+  const mapCenter = center || defaultCenter;
+  const mapZoom = zoom || defaultZoom;
+
   return (
       <MapContainer 
-        center={center as L.LatLngExpression || [12.8797, 121.7740]} 
-        zoom={center ? 8 : 2} 
+        center={mapCenter} 
+        zoom={mapZoom} 
         scrollWheelZoom={false} 
         className="h-[35vh] rounded-lg"
       >

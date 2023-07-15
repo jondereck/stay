@@ -12,6 +12,7 @@ const formatDivisions =  () => {
     { psgcId: "0102801000", latitude: 18.4591, longitude: 120.9188 },
     { psgcId: "0105522000", latitude: 16.006, longitude: 120.2397 },
     { psgcId: "0203129002", latitude: 10.3157, longitude: 123.8854 },
+    { psgcId: "0105519000", latitude: 15.9626, longitude: 119.9047 }
     // Add more municipalities here...
   ];
   
