@@ -4,7 +4,7 @@ import { useRouter } from "next/navigation";
 import { SafeUser } from "@/app/types";
 import { Listing, Reservation, User } from "@prisma/client";
 import useCountries from "@/app/hooks/useCountries";
-import { useCallback, useMemo } from "react";
+import { useCallback, useMemo, useState, useEffect } from "react";
 import Image from "next/image";
 import { format } from "date-fns";
 import Heartbutton from "../HeartButton";
@@ -32,7 +32,16 @@ const ListingCard: React.FC<ListingCardProps> = ({
   const router = useRouter();
   const { getByValue } = useCountries();
 
-  const location = getByValue(data.locationValue);
+  const [location, setLocation] = useState<{ label: string; province: string } | null>(null);
+
+  useEffect(() => {
+    const getLocationData = async () => {
+      const locationData = await getByValue(data.locationValue);
+      setLocation(locationData ?? null);
+    };
+    getLocationData();
+  }, [data.locationValue, getByValue]);
+
 
   const handleCancel = useCallback(
     (e: React.MouseEvent<HTMLButtonElement>) => {
