@@ -30,6 +30,7 @@ export default async function getReservation(
     where: query,
     include: {
       listing: true,
+      
     },
     orderBy: {
       createdAt: "desc",

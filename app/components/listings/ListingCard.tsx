@@ -1,8 +1,7 @@
 "use client";
 
 import { useRouter } from "next/navigation";
-import { SafeUser } from "@/app/types";
-import { Listing, Reservation, User } from "@prisma/client";
+import { SafeListing, SafeReservation, SafeUser } from "@/app/types";
 import useCountries from "@/app/hooks/useCountries";
 import { useCallback, useMemo, useState, useEffect } from "react";
 import Image from "next/image";
@@ -11,8 +10,8 @@ import Heartbutton from "../HeartButton";
 import Button from "../Button";
 
 interface ListingCardProps {
-  data: Listing;
-  reservation?: Reservation;
+  data: SafeListing;
+  reservation?: SafeReservation;
   actionLabel?: string;
   actionId?: string;
   onAction?: (id: string) => void;
@@ -129,18 +128,17 @@ const ListingCard: React.FC<ListingCardProps> = ({
               /night
             </div>
           )}
-          {onAction && actionLabel && (
-            <Button
-            disabled={disabled}
-            small
-            label={actionLabel}
-            onClick={handleCancel}
-            
-            />
-
-          )}
         </div>
+      {onAction && actionLabel && (
+                  <Button
+                  disabled={disabled}
+                  small
+                  label={actionLabel}
+                  onClick={handleCancel}
+                  
+                  />
 
+                )}
       </div>
     </div>
   );
