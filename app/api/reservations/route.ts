@@ -1,28 +1,26 @@
-import { NextResponse } from 'next/server';
+import { NextResponse } from "next/server";
 
-import prisma from '@/app/libs/prismadb';
-import getCurrentUser from '@/app/actions/getCurrentUser';
+import prisma from "@/app/libs/prismadb";
+import getCurrentUser from "@/app/actions/getCurrentUser";
 
-
-export async function POST (
-  request: Request
-){
+export async function POST(
+  request: Request, 
+) {
   const currentUser = await getCurrentUser();
 
   if (!currentUser) {
-    return new Response('Unauthorized', { status: 401 });
+    return NextResponse.error();
   }
 
   const body = await request.json();
-
-  const {
+  const { 
     listingId,
     startDate,
     endDate,
     totalPrice
-  } = body;
+   } = body;
 
-  if (!listingId || !startDate || !endDate || !totalPrice) {
+   if (!listingId || !startDate || !endDate || !totalPrice) {
     return NextResponse.error();
   }
 

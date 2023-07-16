@@ -31,16 +31,7 @@ const ListingCard: React.FC<ListingCardProps> = ({
   const router = useRouter();
   const { getByValue } = useCountries();
 
-  const [location, setLocation] = useState<{ label: string; province: string } | null>(null);
-
-  useEffect(() => {
-    const getLocationData = async () => {
-      const locationData = await getByValue(data.locationValue);
-      setLocation(locationData ?? null);
-    };
-    getLocationData();
-  }, [data.locationValue, getByValue]);
-
+  const location = getByValue(data.locationValue);
 
   const handleCancel = useCallback(
     (e: React.MouseEvent<HTMLButtonElement>) => {
