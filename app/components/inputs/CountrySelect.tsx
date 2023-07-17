@@ -7,10 +7,10 @@ import useCountries from '@/app/hooks/useCountries';
 export type CountrySelectValue = {
   flag: string;
   label: string;
-  latlng: number[],
-  region: string
-  value: string,
-  province: string,
+  latlng: { lat: number; lng: number };
+  region: string;
+  value: string;
+  province: string;
 }
 
 interface CountrySelectProps {

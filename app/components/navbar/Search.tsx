@@ -33,10 +33,11 @@ const Search = () => {
       let diff = differenceInDays(end, start);
 
       if (diff === 0) {
-        diff = 1;
+        return '1 Day'
+      } else {
+        return `${diff} Days`
       }
 
-      return `${diff} Days`;
     }
 
     return 'Any Week'
@@ -44,7 +45,7 @@ const Search = () => {
 
   const guestLabel = useMemo(() => {
     if (guestCount) {
-      return `${guestCount} Guests`;
+      return `${guestCount} Guest/s`;
     }
 
     return 'Add Guests';

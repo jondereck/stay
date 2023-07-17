@@ -9,6 +9,7 @@ interface ModalProps {
   isOpen?: boolean;
   onClose: () => void;
   onSubmit: () => void;
+  onWarning?: () => void;
   title?: string;
   body?: React.ReactElement;
   footer?: React.ReactElement;
@@ -22,6 +23,7 @@ const Modal: React.FC<ModalProps> = ({
   isOpen, 
   onClose, 
   onSubmit, 
+  onWarning,
   title, 
   body, 
   actionLabel, 
