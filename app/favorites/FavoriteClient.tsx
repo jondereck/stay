@@ -2,7 +2,7 @@
 
 import Container from "../components/Container";
 import ListingCard from "../components/listings/ListingCard";
-import Heading from "../components/modals/Heading";
+import Heading from "../components/Heading";
 import { SafeListing, SafeUser } from "../types";
 
 interface FavoriteClientProps {

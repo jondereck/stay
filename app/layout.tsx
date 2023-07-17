@@ -6,6 +6,7 @@ import RegisterModal from "./components/modals/RegisterModal";
 import ToasterProvider from "./providers/ToasterProviders";
 import LoginModal from "./components/modals/LoginModal";
 import getCurrentUser from "./actions/getCurrentUser";
+import SearchModal from "./components/modals/SearchModal";
 import { SafeUser } from "@/app/types";
 import RentModal from "./components/modals/RentModal";
 
@@ -29,6 +30,7 @@ export default async function RootLayout({
       <body className={nunito.className}>
         <ClientOnly>
           <ToasterProvider />
+          <SearchModal />
           <RentModal />
           <LoginModal />
           <RegisterModal />

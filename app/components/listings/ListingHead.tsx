@@ -1,7 +1,7 @@
 'use client';
 
 import Heartbutton from "@/app/components/HeartButton";
-import Heading from "@/app/components/modals/Heading";
+import Heading from "@/app/components/Heading";
 import useCountries from "@/app/hooks/useCountries";
 import { SafeUser } from "@/app/types";
 import Image from "next/image";
