@@ -40,7 +40,7 @@ const Search = () => {
 
     }
 
-    return 'Any Week'
+    return 'Anyweek'
   }, [startDate, endDate]);
 
   const guestLabel = useMemo(() => {

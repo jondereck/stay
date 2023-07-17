@@ -65,6 +65,15 @@ const ListingCard: React.FC<ListingCardProps> = ({
     return `${format(start, "PP")} - ${format(end, "PP")}`;
   }, [reservation]);
 
+
+      // Helper function to remove the "City of" prefix
+      const getFilteredLocationLabel = (locationLabel?: string) => {
+        if (locationLabel) {
+          const prefixToRemove = "City of ";
+          return locationLabel.replace(new RegExp(`^${prefixToRemove}`), "");
+        }
+        return "";
+      };
   return (
     <div
       onClick={() => router.push(`/listing/${data.id}`)}
@@ -105,7 +114,7 @@ const ListingCard: React.FC<ListingCardProps> = ({
         <div
           className="font-semibold text-lg"        
         >
-         {location?.label}, {location?.province}
+         {getFilteredLocationLabel(location?.label)}, {location?.province}
         </div>
         <div className="font-light text-neutral-500">
           {reservationDate || data.category}
