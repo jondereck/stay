@@ -2,7 +2,6 @@
 
 
 import { signIn } from "next-auth/react"
-import axios from "axios";
 import { AiFillGithub } from "react-icons/ai";
 import { FcGoogle } from "react-icons/fc";
 import { useCallback, useState } from "react";
@@ -30,7 +29,7 @@ const LoginModal = () => {
   } = useForm<FieldValues>({
     defaultValues: {
       email: "",
-      password: "",  
+      password: "",
     },
   });
 
@@ -49,26 +48,26 @@ const LoginModal = () => {
       ...data,
       redirect: false,
     })
-    .then((callback) => {
-      setIsLoading(false);
+      .then((callback) => {
+        setIsLoading(false);
 
-      if (callback?.ok) {
-        toast.success('Logged in');
-        router.refresh();
-        loginModal.onClose();
-      }
+        if (callback?.ok) {
+          toast.success('Logged in');
+          router.refresh();
+          loginModal.onClose();
+        }
 
-      if (callback?.error) {
-        toast.error(callback.error);
-      }
-    })
+        if (callback?.error) {
+          toast.error(callback.error);
+        }
+      })
 
   };
 
   const toggle = useCallback(() => {
     loginModal.onClose();
     registerModal.onOpen();
-  },[registerModal, loginModal]);
+  }, [registerModal, loginModal]);
 
 
   const bodyContent = (
@@ -86,7 +85,7 @@ const LoginModal = () => {
         errors={errors}
         required
       />
-  
+
 
       <Input
         id="password"
@@ -96,9 +95,10 @@ const LoginModal = () => {
         register={register}
         errors={errors}
         required
+        obscure
       />
 
-    
+
     </div>
   );
 
@@ -132,20 +132,20 @@ const LoginModal = () => {
           justify-center
           items-center 
           gap-2"
-          >
-            <div>
-                First time using Stay?
-            </div>
-            <div 
+        >
+          <div>
+            First time using Stay?
+          </div>
+          <div
             onClick={toggle}
             className="
               text-neutral-800
               cursor-pointer
               hover:underline
               font-medium"
-              >
-               Create an account
-            </div>
+          >
+            Create an account
+          </div>
         </div>
       </div>
     </div>

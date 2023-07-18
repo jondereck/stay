@@ -3,6 +3,7 @@
 import { useState } from 'react';
 import { UseFormRegister, FieldValues, FieldErrors, Validate } from 'react-hook-form';
 import { TbCurrencyPeso } from 'react-icons/tb';
+import { AiOutlineEye, AiOutlineEyeInvisible } from 'react-icons/ai';
 
 
 interface InputProps {
@@ -15,6 +16,7 @@ interface InputProps {
   register: UseFormRegister<FieldValues>;
   errors: FieldErrors;
   validate?: Validate<string, FieldValues>;
+  obscure?: boolean
 }
 
 
@@ -27,16 +29,20 @@ const Input: React.FC<InputProps> = ({
   register,
   required,
   errors,
-  validate
+  validate,
+  obscure,
 
 
 
 }) => {
+  
   const [passwordVisible, setPasswordVisibile] = useState(false);
 
   const togglePasswordVisibility = () => {
     setPasswordVisibile((prev) => !prev);
   }
+
+  const inputType = obscure ? (passwordVisible ? "text" : "password") : type; 
 
   return (
     <div className='h-full relative'>
@@ -57,7 +63,7 @@ const Input: React.FC<InputProps> = ({
         disabled={disabled}
         {...register(id, { required, validate })}
         placeholder=" "
-        type={type}
+        type={inputType}
         className={`
           peer
           w-full
@@ -76,6 +82,15 @@ const Input: React.FC<InputProps> = ({
           ${errors[id] ? 'focus:border-rose-500' : 'focus:border-black'}`}
 
       />
+      {type === 'password' && (
+        <button
+          type='button'
+          className='absolute top-5 right-4'
+          onClick={togglePasswordVisibility}
+        >
+          {passwordVisible ? <AiOutlineEye size={30}/> : <AiOutlineEyeInvisible size={30}/>}
+        </button>
+      )}
       <label
         className={`
         absolute

@@ -122,6 +122,7 @@ const RegisterModal = () => {
         disabled={isLoading}
         register={register}
         errors={errors}
+        obscure
         required
       />
 
@@ -133,6 +134,7 @@ const RegisterModal = () => {
         register={register}
         errors={errors}
         required
+        obscure
         validate={validateMatchPassword}
       />
     </div>

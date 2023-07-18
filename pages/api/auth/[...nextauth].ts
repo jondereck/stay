@@ -1,6 +1,6 @@
 import { PrismaAdapter } from "@next-auth/prisma-adapter";
 import NextAuth, { AuthOptions } from "next-auth";
-import  GithubProvider from "next-auth/providers/github";
+import GithubProvider from "next-auth/providers/github";
 import GoogleProvider from "next-auth/providers/google";
 import CredentialsProvider from "next-auth/providers/credentials";
 import bcrypt from "bcrypt";
@@ -22,8 +22,8 @@ export const authOptions: AuthOptions = {
     CredentialsProvider({
       name: 'credentials',
       credentials: {
-        email: { label: 'email', type: 'text'},
-        password: {label:'password',type:"password"},
+        email: { label: 'email', type: 'text' },
+        password: { label: 'password', type: "password" },
       },
       async authorize(credentials) {
         if (!credentials?.email || !credentials.password) {
@@ -35,10 +35,12 @@ export const authOptions: AuthOptions = {
             email: credentials.email
           }
         });
-        if (!user || !user?.hashedPassword) {
-          throw new Error ('Gago mali password mo');
+        if (!user) {
+          throw new Error('Email not registered')
         }
-
+        if (!user || !user?.hashedPassword) {
+          throw new Error('Gago mali password mo');
+        }
         const isCorrectPassword = await bcrypt.compare(
           credentials.password,
           user.hashedPassword
@@ -53,9 +55,9 @@ export const authOptions: AuthOptions = {
     })
   ],
   pages: {
-    signIn:'/',
+    signIn: '/',
   },
-  debug:process.env.NODE_ENV === 'development',
+  debug: process.env.NODE_ENV === 'development',
   session: {
     strategy: "jwt", // default value - can be omitted in this case   
   },
