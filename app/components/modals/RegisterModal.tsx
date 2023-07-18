@@ -13,7 +13,6 @@ import { toast } from "react-hot-toast";
 import Button from "../Button";
 import useLoginModal from "@/app/hooks/useLoginModal";
 import { signIn } from "next-auth/react"
-import { useRouter } from "next/navigation";
 const RegisterModal = () => {
   const registerModal = useRegisterModal();
   const loginModal = useLoginModal();
@@ -33,24 +32,35 @@ const RegisterModal = () => {
     },
   });
 
+   const validateEmail = (value: string) => {
+    const emailRegex = /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i;
+    const isValidEmail = emailRegex.test(value);
+    
+    if (!isValidEmail) {
+      return 'Invalid email address';
+    }
+  };
+
+  const validateName = (value: string) => {
+    if (value.length < 3 ) {
+      return 'Invalid name'
+    }
+  }
+
   const validateMatchPassword: Validate<string, FieldValues> = (
     value,
     formValues
   ) => {
     const password = formValues.password;
+    if (value === password) {
+      return true;
+    } 
     return value === password || "Passwords do not match";
   };
 
   const onSumbit: SubmitHandler<FieldValues> = (data) => {
-    const password = watch("password"); // Access the value of the "password" field
-    const repeatPass = watch("repeatPass"); // Access the value of the "repeatPass" field
 
-    if (password !== repeatPass) {
-      // Handle password mismatch error
-      setIsLoading(false);
-      toast.error("Something");
-      return;
-    }
+  
     setIsLoading(true);
     axios
       .post("/api/register", data)
@@ -60,11 +70,17 @@ const RegisterModal = () => {
         loginModal.onOpen();
       })
       .catch((error) => {
-        toast.error("Something went wrong");
+        if (error.response && error.response.data && error.response.data.error) {
+          toast.error(error.response.data.error);
+        } else {
+          toast.error("Something went wrong");
+        }
       })
       .finally(() => {
         setIsLoading(false);
       });
+
+      
   };
 
   const toggle = useCallback(() => {
@@ -86,6 +102,8 @@ const RegisterModal = () => {
         register={register}
         errors={errors}
         required
+        validate={validateEmail}
+        
       />
       <Input
         id="name"
@@ -94,6 +112,7 @@ const RegisterModal = () => {
         register={register}
         errors={errors}
         required
+        validate={validateName}
       />
 
       <Input

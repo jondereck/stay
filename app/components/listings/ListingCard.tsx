@@ -129,6 +129,7 @@ const ListingCard: React.FC<ListingCardProps> = ({
             </div>
           )}
         </div>
+      {/* <div className="absolute "> */}
       {onAction && actionLabel && (
                   <Button
                   disabled={disabled}
@@ -139,6 +140,7 @@ const ListingCard: React.FC<ListingCardProps> = ({
                   />
 
                 )}
+      {/* </div> */}
       </div>
     </div>
   );

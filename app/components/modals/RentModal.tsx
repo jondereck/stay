@@ -143,10 +143,11 @@ const RentModal = () => {
       .post('/api/listing', data)
       .then(() =>{
         toast.success('Listing Created');
-        router.refresh;
+        router.refresh();
         reset();
         setSteps(STEPS.CATEGORY);
         rentModal.onClose();
+       
       })
       .catch(({response})=> 
       toast.error(`Error creating listing ${response?.status}`))

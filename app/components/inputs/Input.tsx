@@ -1,7 +1,8 @@
 'use client'
 
+import { useState } from 'react';
 import { UseFormRegister, FieldValues, FieldErrors, Validate } from 'react-hook-form';
-import {TbCurrencyPeso} from 'react-icons/tb';
+import { TbCurrencyPeso } from 'react-icons/tb';
 
 
 interface InputProps {
@@ -31,27 +32,30 @@ const Input: React.FC<InputProps> = ({
 
 
 }) => {
+  const [passwordVisible, setPasswordVisibile] = useState(false);
 
-
+  const togglePasswordVisibility = () => {
+    setPasswordVisibile((prev) => !prev);
+  }
 
   return (
     <div className='h-full relative'>
       {formatPrice && (
-       <TbCurrencyPeso 
-       size={24}
-       className="
+        <TbCurrencyPeso
+          size={24}
+          className="
        text-neutral-700
        absolute
        top-5
        left-2"
-       />
-      )}  
+        />
+      )}
       <input
 
         id={id}
-        
+
         disabled={disabled}
-        {...register(id, { required, validate})}
+        {...register(id, { required, validate })}
         placeholder=" "
         type={type}
         className={`
@@ -70,7 +74,7 @@ const Input: React.FC<InputProps> = ({
           ${formatPrice ? 'pl-9' : 'pl-4'}
           ${errors[id] ? 'border-rose-500' : 'border-neutral-300'}
           ${errors[id] ? 'focus:border-rose-500' : 'focus:border-black'}`}
-          
+
       />
       <label
         className={`
@@ -89,10 +93,10 @@ const Input: React.FC<InputProps> = ({
         peer-focus:-translate-y-4
         ${errors[id] ? 'text-rose-500' : 'text-zinc-400'}
         `}>
-          {label}
+        {label}
       </label>
     </div>
   );
 }
- 
+
 export default Input
