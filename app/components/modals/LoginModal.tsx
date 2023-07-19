@@ -33,13 +33,7 @@ const LoginModal = () => {
     },
   });
 
-  const validateMatchPassword: Validate<string, FieldValues> = (
-    value,
-    formValues
-  ) => {
-    const password = formValues.password;
-    return value === password || "Passwords do not match";
-  };
+ 
 
   const onSumbit: SubmitHandler<FieldValues> = (data) => {
     setIsLoading(true);

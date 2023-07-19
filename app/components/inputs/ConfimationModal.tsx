@@ -1,73 +1,40 @@
-'use client';
-
-import { useCallback, useEffect, useState } from "react";
-import { IoMdClose } from "react-icons/io";
-
+import React from "react";
 import Button from "../Button";
+import { IoMdClose } from "react-icons/io";
+import useConfirmation from "@/app/hooks/useConfirmation";
 
-interface ModalProps {
-  isOpen?: boolean;
+interface ConfirmationModalProps {
+  isOpen: boolean;
   onClose: () => void;
-  onSubmit: () => void;
-  onWarning?: () => void;
-  title?: string;
-  body?: React.ReactElement;
-  footer?: React.ReactElement;
+  onConfirm: () => void;
+  title: string;
+  body: React.ReactElement;
   actionLabel: string;
   disabled?: boolean;
-  secondaryAction?: () => void;
-  secondaryActionLabel?: string;
 }
 
-const Modal: React.FC<ModalProps> = ({ 
-  isOpen, 
-  onClose, 
-  onSubmit, 
-  onWarning,
-  title, 
-  body, 
-  actionLabel, 
-  footer, 
+const ConfirmationModal: React.FC<ConfirmationModalProps> = ({
+  isOpen,
+  onClose,
+  onConfirm,
+  title,
+  body,
+  actionLabel,
   disabled,
-  secondaryAction,
-  secondaryActionLabel
 }) => {
-  const [showModal, setShowModal] = useState(isOpen);
 
-  useEffect(() => {
-    setShowModal(isOpen);
-  }, [isOpen]);
-
-  const handleClose = useCallback(() => {
-    if (disabled) {
-      return;
-    }
+  const confirmationModal = useConfirmation();
   
-    setShowModal(false);
-    setTimeout(() => {
-      onClose();
-    }, 300)
-  }, [onClose, disabled]);
-
-  const handleSubmit = useCallback(() => {
-    if (disabled) {
-      return;
-    }
-
-    onSubmit();
-  }, [onSubmit, disabled]);
-
-  const handleSecondaryAction = useCallback(() => {
-    if (disabled || !secondaryAction) {
-      return;
-    }
-
-    secondaryAction();
-  }, [secondaryAction, disabled]);
-
   if (!isOpen) {
     return null;
   }
+
+  const handleConfirm = () => {
+    onConfirm();
+    onClose();
+  };
+
+  
 
   return (
     <>
@@ -99,13 +66,12 @@ const Modal: React.FC<ModalProps> = ({
           md:h-auto
           "
         >
-          {/*content*/}
           <div className={`
             translate
             duration-300
             h-full
-            ${showModal ? 'translate-y-0' : 'translate-y-full'}
-            ${showModal ? 'opacity-100' : 'opacity-0'}
+            ${isOpen ? 'translate-y-0' : 'translate-y-full'}
+            ${isOpen ? 'opacity-100' : 'opacity-0'}
           `}>
             <div className="
               translate
@@ -124,7 +90,6 @@ const Modal: React.FC<ModalProps> = ({
               focus:outline-none
             "
             >
-              {/*header*/}
               <div className="
                 flex 
                 items-center 
@@ -144,7 +109,7 @@ const Modal: React.FC<ModalProps> = ({
                     absolute
                     left-9
                   "
-                  onClick={handleClose}
+                  onClick={onClose}
                 >
                   <IoMdClose size={18} />
                 </button>
@@ -152,11 +117,9 @@ const Modal: React.FC<ModalProps> = ({
                   {title}
                 </div>
               </div>
-              {/*body*/}
               <div className="relative p-6 flex-auto">
                 {body}
               </div>
-              {/*footer*/}
               <div className="flex flex-col gap-2 p-6">
                 <div 
                   className="
@@ -167,21 +130,18 @@ const Modal: React.FC<ModalProps> = ({
                     w-full
                   "
                 >
-                  {secondaryAction && secondaryActionLabel && (
-                    <Button 
-                      disabled={disabled} 
-                      label={secondaryActionLabel} 
-                      onClick={handleSecondaryAction}
-                      outline
-                    />  
-                  )}
                   <Button 
                     disabled={disabled} 
                     label={actionLabel} 
-                    onClick={handleSubmit}
+                    onClick={handleConfirm}
                   />
-                  
-                </div>{footer}
+                  <Button 
+                    disabled={disabled} 
+                    label="Cancel" 
+                    onClick={onClose}
+                    outline
+                  />
+                </div>
               </div>
             </div>
           </div>
@@ -189,6 +149,6 @@ const Modal: React.FC<ModalProps> = ({
       </div>
     </>
   );
-}
+};
 
-export default Modal;
+export default ConfirmationModal;

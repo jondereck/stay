@@ -172,7 +172,7 @@ const ListingClient: React.FC<ListingClientProps> = ({
                   Price
                 </div>
                 <div>
-                  {totalPrice}
+                 ₱ {totalPrice}
                 </div>
               </div>
             </div>

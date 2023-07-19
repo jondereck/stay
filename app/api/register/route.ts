@@ -53,7 +53,7 @@ export async function POST(
 
   if (existingUser) {
     return NextResponse.json(
-      { error: 'Email already registed' },
+      { error: 'Email already registered' },
       { status: 409 }
     )
   }

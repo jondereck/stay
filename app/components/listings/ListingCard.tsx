@@ -33,18 +33,15 @@ const ListingCard: React.FC<ListingCardProps> = ({
 
   const location = getByValue(data.locationValue);
 
-  const handleCancel = useCallback(
-    (e: React.MouseEvent<HTMLButtonElement>) => {
-      e.stopPropagation();
+  const handleCancel = useCallback(() => {
+    if (disabled) {
+      return;
+    }
 
-      if (disabled) {
-        return;
-      }
+    onAction?.(actionId);
 
-      onAction?.(actionId);
-    },
-    [disabled, onAction, actionId]
-  );
+
+  }, [disabled, onAction, actionId]);
 
   const price = useMemo(() => {
     if (reservation) {
@@ -66,22 +63,24 @@ const ListingCard: React.FC<ListingCardProps> = ({
   }, [reservation]);
 
 
-      // Helper function to remove the "City of" prefix
-      const getFilteredLocationLabel = (locationLabel?: string) => {
-        if (locationLabel) {
-          const prefixToRemove = "City of ";
-          return locationLabel.replace(new RegExp(`^${prefixToRemove}`), "");
-        }
-        return "";
-      };
+  // Helper function to remove the "City of" prefix
+  const getFilteredLocationLabel = (locationLabel?: string) => {
+    if (locationLabel) {
+      const prefixToRemove = "City of ";
+      return locationLabel.replace(new RegExp(`^${prefixToRemove}`), "");
+    }
+    return "";
+  };
   return (
     <div
-      onClick={() => router.push(`/listing/${data.id}`)}
+
       className="
         col-span-1 cursor-pointer group
       "
     >
-      <div className="flex flex-col gap-2 w-full">
+      <div
+        onClick={() => router.push(`/listing/${data.id}`)}
+        className="flex flex-col gap-2 w-full">
         <div
           className="
             aspect-square 
@@ -92,6 +91,7 @@ const ListingCard: React.FC<ListingCardProps> = ({
           "
         >
           <Image
+
             fill
             className="
               object-cover 
@@ -105,23 +105,23 @@ const ListingCard: React.FC<ListingCardProps> = ({
           />
 
           <div className="absolute top-3 right-3">
-            <Heartbutton 
+            <Heartbutton
               listingId={data.id}
               currentUser={currentUser}
             />
           </div>
         </div>
         <div
-          className="font-semibold text-lg"        
+          className="font-semibold text-lg"
         >
-         {getFilteredLocationLabel(location?.label)}, {location?.province}
+          {getFilteredLocationLabel(location?.label)}, {location?.province}
         </div>
         <div className="font-light text-neutral-500">
           {reservationDate || data.category}
         </div>
         <div className="flex flex-row items-center gap-1">
           <div className="font-semibold">
-           ₱ {price}
+            ₱ {price}
           </div>
           {!reservation && (
             <div className="font-light">
@@ -129,19 +129,17 @@ const ListingCard: React.FC<ListingCardProps> = ({
             </div>
           )}
         </div>
-      {/* <div className="absolute "> */}
-      {onAction && actionLabel && (
-                  <Button
-                  disabled={disabled}
-                  small
-                  label={actionLabel}
-                  onClick={handleCancel}
-                  
-                  />
 
-                )}
-      {/* </div> */}
-      </div>
+      </div>{onAction && actionLabel && (
+        <Button
+          disabled={disabled}
+          small
+          label={actionLabel}
+          onClick={handleCancel}
+          onWarning
+        />
+
+      )}
     </div>
   );
 };
