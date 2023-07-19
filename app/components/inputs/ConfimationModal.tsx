@@ -75,7 +75,7 @@ const ConfirmationModal: React.FC<ConfirmationModalProps> = ({
           `}>
             <div className="
               translate
-              h-screen
+              h-full
               lg:h-auto
               md:h-auto
               border-0 
